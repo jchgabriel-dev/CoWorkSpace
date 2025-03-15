@@ -14,6 +14,21 @@ class SpaceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class SpaceCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Space
+        fields = '__all__'
+
+    def validate(self, data):
+        errors = {}
+        if "name" not in data:
+            errors["name"] = "Este campo es obligatorio." 
+
+        if errors:
+            raise serializers.ValidationError(errors) 
+
+        return data
+
 # Serializer para espacios con solo el nombre
 class SpaceNameSerializer(serializers.ModelSerializer):
     class Meta:

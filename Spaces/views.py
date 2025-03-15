@@ -22,7 +22,12 @@ class SpaceAvailableListView(ListAPIView):
     serializer_class = SpaceSerializer
     permission_classes = [IsAuthenticated]
     
-
+# Api para crear un espacios
+class SpaceCreateView(CreateAPIView):
+    queryset = Space.objects.all()
+    serializer_class = SpaceSerializer
+    permission_classes = [IsAuthenticated] 
+    
 # Api para obtener un espacio específico
 class SpaceDetailView(RetrieveAPIView):
     queryset = Space.objects.all()
@@ -79,11 +84,13 @@ class ReservationListCreateView(APIView):
     serializer_class = ReservationSerializer
     permission_classes = [IsAuthenticated]
 
+    
     def get(self, request):
         reservations = Reservation.objects.filter(user=request.user)
         serializer = ReservationSerializer(reservations, many=True)
         return Response(serializer.data)
 
+    
     def post(self, request):
         serializer = ReservationCreateSerializer(data=request.data)
         if serializer.is_valid():

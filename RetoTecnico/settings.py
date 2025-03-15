@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
-
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     
     # Libreriras
     'rest_framework',
-    'drf_yasg',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
     
     # Aplicaciones
     'Users',
@@ -139,6 +140,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Configuracion Rest Framework
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -150,3 +153,10 @@ AUTH_USER_MODEL = 'Users.CustomUser'
 
 # Versionamiento Swagger
 SWAGGER_USE_COMPAT_RENDERERS = False
+
+
+# Duracion de los tokens
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(hours=2),
+}
