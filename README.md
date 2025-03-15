@@ -52,7 +52,15 @@ docker-compose up -d
 Se realizaron pruebas unitarias para verificar la funcionalidad de cada una las vistas, revisar ciertas restricciones, ademas de comprobar las respuestas del servidor. Para ejecutar las pruebas unitarias es necesario ejecutar los siguientes comandos para cada uno de los modelos.
 
 ```
-docker-compose exec djangapp pytest User/test/test_user.py
+docker-compose exec djangapp pytest Users/tests/test_user.py  
 docker-compose exec djangapp pytest Spaces/tests/test_reservation.py
 docker-compose exec djangapp pytest Spaces/tests/test_space.py
 ```
+
+<h2>Documentacion:</h2>
+Para poder acceder a la documentacion generada por Swagger es necesario acceder al siguiente link, siendo necesario registrar un usuario y generar el token respectivo con el login, para luego registrar el token en la parte superior derecha de la pagina para la autenticación.
+
+```
+http://127.0.0.1:8000/api/docs/
+```
+
