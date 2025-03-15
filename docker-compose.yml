@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  djangapp: 
+    container_name: RetoTecnico
+    build: .
+    ports:
+      - "8000:8000"
+    
+    environment:
+      - PG_USER=Administrador
+      - PG_PASSWORD=Administrador
+      - PG_DB=RegistroTecnicoDatabase
+      - PG_HOST=db
+      - PG_PORT=5432
+    
+    depends_on:
+      - db
+    
+  db:
+    container_name: db
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=Administrador
+      - POSTGRES_PASSWORD=Administrador
+      - POSTGRES_DB=RegistroTecnicoDatabase
+    ports:
+      - "5432:5432"   
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: {}
